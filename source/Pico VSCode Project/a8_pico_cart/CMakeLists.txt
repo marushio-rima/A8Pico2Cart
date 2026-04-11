@@ -8,12 +8,6 @@ include(pico_sdk_import.cmake)
 
 project(a8_pico_cart)
 
-# initialize the SDK based on PICO_SDK_PATH
-# note: this must happen before project()
-include(pico_sdk_import.cmake)
-
-project(a8_pico_cart)
-
 # initialize the Raspberry Pi Pico SDK
 pico_sdk_init()
 
@@ -43,8 +37,6 @@ target_include_directories(a8_pico_cart PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/fatfs
 )
 
-# pico_stdlib + hardware_flash + tinyusb_device
-# hardware_sync included for __wfe() used in timing loops
 target_link_libraries(a8_pico_cart PUBLIC
     pico_stdlib
     hardware_flash
@@ -52,5 +44,4 @@ target_link_libraries(a8_pico_cart PUBLIC
     tinyusb_device
 )
 
-# create map/bin/hex/uf2 file in addition to ELF
 pico_add_extra_outputs(a8_pico_cart)
