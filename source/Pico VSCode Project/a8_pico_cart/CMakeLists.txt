@@ -8,7 +8,7 @@ project(a8_pico_cart)
 
 # WeAct RP2350B — uses pico2 board definition (RP2350, QFN-80, 48 GPIOs)
 # Pico SDK 2.x required
-set(PICO_PLATFORM rp2350)
+set(PICO_PLATFORM rp2350-arm-s)
 set(PICO_BOARD pico2)
 
 # initialize the Raspberry Pi Pico SDK
