@@ -8,4 +8,3 @@
 
 // Pick up settings from pico2 board definition
 #include "boards/pico2.h"
-Commit: Port: update myboard.h for WeAct RP2350B (pico2 board)
