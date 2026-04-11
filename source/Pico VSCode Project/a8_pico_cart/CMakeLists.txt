@@ -1,26 +1,22 @@
 cmake_minimum_required(VERSION 3.13)
 
-# DEVE vir ANTES do include do SDK
 set(PICO_PLATFORM rp2350-arm-s CACHE STRING "Platform")
 set(PICO_BOARD pico2 CACHE STRING "Board")
 
 include(pico_sdk_import.cmake)
 
-project(a8_pico_cart)
+project(a8pico2cart)
 
-# initialize the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-add_executable(a8_pico_cart)
+add_executable(a8pico2cart)
 
-# WeAct RP2350B flash size:
-#   8MB  = 8388608  (0x800000)  — currently available
-#   16MB = 16777216 (0x1000000) — when available
-target_compile_definitions(a8_pico_cart PRIVATE
+target_compile_definitions(a8pico2cart PRIVATE
     PICO_FLASH_SIZE_BYTES=8388608
+    USBD_PRODUCT="A8Pico2Cart"
 )
 
-target_sources(a8_pico_cart PUBLIC
+target_sources(a8pico2cart PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/main.c
     ${CMAKE_CURRENT_LIST_DIR}/atari_cart.c
     ${CMAKE_CURRENT_LIST_DIR}/msc_disk.c
@@ -32,16 +28,17 @@ target_sources(a8_pico_cart PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/fatfs/diskio.c
 )
 
-target_include_directories(a8_pico_cart PUBLIC
+target_include_directories(a8pico2cart PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
     ${CMAKE_CURRENT_LIST_DIR}/fatfs
 )
 
-target_link_libraries(a8_pico_cart PUBLIC
+target_link_libraries(a8pico2cart PUBLIC
     pico_stdlib
     hardware_flash
     hardware_sync
+    hardware_clocks
     tinyusb_device
 )
 
-pico_add_extra_outputs(a8_pico_cart)
+pico_add_extra_outputs(a8pico2cart)
