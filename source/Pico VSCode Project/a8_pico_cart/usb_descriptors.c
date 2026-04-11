@@ -239,16 +239,13 @@ uint8_t const * tud_descriptor_configuration_cb(uint8_t index)
 // array of pointer to string descriptors
 char const* string_desc_arr [] =
 {
- char const* string_desc_arr [] =
-{
   (const char[]) { 0x09, 0x04 },
-  "marushio-rima",          // 1: Manufacturer  
-  "A8Pico2Cart",            // 2: Product       
-  "123456789012",           // 3: Serial
-  "A8Pico2Cart CDC",        // 4: CDC Interface ← era "A8PicoCart CDC"
-  "A8Pico2Cart MSC",        // 5: MSC Interface ← era "A8PicoCart MSC"
+  "marushio-rima",
+  "A8Pico2Cart",
+  "123456789012",
+  "A8Pico2Cart CDC",
+  "A8Pico2Cart MSC",
 };
-
 static uint16_t _desc_str[32];
 
 // Invoked when received GET STRING DESCRIPTOR request
