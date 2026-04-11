@@ -28,6 +28,7 @@
 
 #include "pico/stdlib.h"
 #include "hardware/sync.h"
+#include "hardware/clocks.h"
 
 #include "ff.h"
 #include "fatfs_disk.h"
