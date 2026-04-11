@@ -239,12 +239,14 @@ uint8_t const * tud_descriptor_configuration_cb(uint8_t index)
 // array of pointer to string descriptors
 char const* string_desc_arr [] =
 {
-  (const char[]) { 0x09, 0x04 }, // 0: is supported language is English (0x0409)
-  "Electrotrains",                 // 1: Manufacturer
-  "A8PicoCart",                    // 2: Product
-  "123456789012",                  // 3: Serials, should use chip ID
-  "A8PicoCart CDC",                // 4: CDC Interface
-  "A8PicoCart MSC",                // 5: MSC Interface
+ char const* string_desc_arr [] =
+{
+  (const char[]) { 0x09, 0x04 },
+  "marushio-rima",          // 1: Manufacturer  
+  "A8Pico2Cart",            // 2: Product       
+  "123456789012",           // 3: Serial
+  "A8Pico2Cart CDC",        // 4: CDC Interface ← era "A8PicoCart CDC"
+  "A8Pico2Cart MSC",        // 5: MSC Interface ← era "A8PicoCart MSC"
 };
 
 static uint16_t _desc_str[32];
