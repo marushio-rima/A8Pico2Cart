@@ -6,20 +6,22 @@ include(pico_sdk_import.cmake)
 
 project(a8_pico_cart)
 
-set(PICO_BOARD_HEADER_DIRS ${CMAKE_SOURCE_DIR}) 
-set(PICO_BOARD myboard)
+# WeAct RP2350B — uses pico2 board definition (RP2350, QFN-80, 48 GPIOs)
+# Pico SDK 2.x required
+set(PICO_PLATFORM rp2350)
+set(PICO_BOARD pico2)
 
 # initialize the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 add_executable(a8_pico_cart)
 
-# 16megs of flash on purple pico clones
+# WeAct RP2350B flash size:
+#   8MB  = 8388608  (0x800000)  — currently available
+#   16MB = 16777216 (0x1000000) — when available
 target_compile_definitions(a8_pico_cart PRIVATE
-    PICO_FLASH_SIZE_BYTES=16777216
+    PICO_FLASH_SIZE_BYTES=8388608
 )
-
-#pico_set_linker_script(a8_pico_cart ${CMAKE_CURRENT_SOURCE_DIR}/memmap_custom.ld)
 
 target_sources(a8_pico_cart PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/main.c
@@ -31,16 +33,21 @@ target_sources(a8_pico_cart PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/fatfs/ff.c
     ${CMAKE_CURRENT_LIST_DIR}/fatfs/ffunicode.c
     ${CMAKE_CURRENT_LIST_DIR}/fatfs/diskio.c
-) 
+)
 
 target_include_directories(a8_pico_cart PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
     ${CMAKE_CURRENT_LIST_DIR}/fatfs
 )
 
-# In addition to pico_stdlib required for common PicoSDK functionality, add dependency on tinyusb_device
-# for TinyUSB device support
-target_link_libraries(a8_pico_cart PUBLIC pico_stdlib hardware_flash tinyusb_device)
+# pico_stdlib + hardware_flash + tinyusb_device
+# hardware_sync included for __wfe() used in timing loops
+target_link_libraries(a8_pico_cart PUBLIC
+    pico_stdlib
+    hardware_flash
+    hardware_sync
+    tinyusb_device
+)
 
-# create map/bin/hex/uf2 file in addition to ELF.
+# create map/bin/hex/uf2 file in addition to ELF
 pico_add_extra_outputs(a8_pico_cart)
